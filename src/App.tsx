@@ -32,7 +32,6 @@ function App() {
         fetchPhotos();
       }
     };
-
     if (page === 1) {
       loadFromLocalStorage();
     } else {
@@ -48,13 +47,15 @@ function App() {
     let url;
     const perPage = 20;
     const urlPage = `${page}`;
-    const urlQuery = `&query=${query}`;
+    const urlQuery = query ? `&query=${query}` : "";
     const urlOrder = "&order_by=popular";
 
     if (query && query !== "") {
-      url = `${apiSearchUrl}?${urlPage}${urlQuery}${urlOrder}&per_page=${perPage}${clientID}`;
+      url = `${apiSearchUrl}${urlPage}${urlQuery}&per_page=${perPage}${clientID}`;
+      console.log(url);
+      (url)
     } else {
-      url = `${apiUrl}?${urlPage}${urlOrder}${clientID}&per_page=${perPage}`;
+      url = `${apiUrl}${urlPage}${urlOrder}${clientID}&per_page=${perPage}`;
     }
 
     try {
@@ -72,8 +73,8 @@ function App() {
           localStorage.setItem(query, JSON.stringify(newPhotos));
           return newPhotos;
         } else {
-          const newPhotos = [...prevPhotos, ...data];
-          localStorage.setItem(query, JSON.stringify(newPhotos));
+          const newPhotos = data.slice(0, perPage);
+          localStorage.setItem("popular", JSON.stringify(newPhotos));
           return newPhotos;
         }
       });
@@ -124,7 +125,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar setQuery={setQuery} />
       <Routes>
         <Route
           path="/"
@@ -135,6 +136,7 @@ function App() {
               setHistory={setHistory}
               setPage={setPage}
               initialFetch={initialFetch}
+              query={query}
             />
           }
         />

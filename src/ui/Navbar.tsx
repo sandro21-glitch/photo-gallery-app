@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import logo from "/assets/images/logo-no-background.svg";
 import "./Navbar.css";
-const Navbar = () => {
+type NavTypes = {
+  setQuery: (value: string) => void;
+};
+
+const Navbar = ({ setQuery }: NavTypes) => {
   return (
     <header>
       <nav className="navbar section-center">
-        <Link to="/">
+        <Link to="/" onClick={() => setQuery("")}>
           <img src={logo} alt="Logo" className="logo" />
         </Link>
         <ul className="nav-links">

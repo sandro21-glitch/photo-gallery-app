@@ -6,11 +6,21 @@ type SearchInputTypes = {
   setQuery: (value: string) => void;
   setHistory: React.Dispatch<React.SetStateAction<string[]>>;
   setPage: (value: number) => void;
+  query: string;
 };
 
-const SearchInput = ({ setQuery, setHistory, setPage }: SearchInputTypes) => {
+const SearchInput = ({
+  setQuery,
+  setHistory,
+  setPage,
+  query,
+}: SearchInputTypes) => {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-  const [localQuery, setLocalQuery] = useState("");
+  const [localQuery, setLocalQuery] = useState(query);
+
+  useEffect(() => {
+    setLocalQuery(query === "" ? "" : query);
+  }, [query]);
 
   const handleSetQuery = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;

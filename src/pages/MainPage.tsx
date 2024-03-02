@@ -9,6 +9,7 @@ type MainPageTypes = {
   setHistory: React.Dispatch<React.SetStateAction<string[]>>;
   setPage: (value: number) => void;
   initialFetch: boolean;
+  query: string;
 };
 const MainPage = ({
   photos,
@@ -16,6 +17,7 @@ const MainPage = ({
   setHistory,
   setPage,
   initialFetch,
+  query
 }: MainPageTypes) => {
   if (!initialFetch) return <Loading />;
   return (
@@ -24,6 +26,7 @@ const MainPage = ({
         setQuery={setQuery}
         setHistory={setHistory}
         setPage={setPage}
+        query={query}
       />
       {photos.length < 1 ? (
         <p>ფოტოები ვერ მოიძებნა</p>
