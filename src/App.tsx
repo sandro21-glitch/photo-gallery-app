@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  HashRouter as BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import MainPage from "./pages/MainPage";
 import HistoryPage from "./pages/HistoryPage";
