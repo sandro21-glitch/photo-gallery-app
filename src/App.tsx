@@ -134,7 +134,6 @@ function App() {
               setQuery={setQuery}
               setHistory={setHistory}
               setPage={setPage}
-              query={query}
               initialFetch={initialFetch}
             />
           }
