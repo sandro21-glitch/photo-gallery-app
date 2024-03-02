@@ -21,16 +21,31 @@ header {
 .nav-links {
   list-style: none;
   display: flex;
+  gap: 20px;
 }
 .nav-links li {
-  margin-right: 20px;
   color: var(--text-color);
   cursor: pointer;
+  position: relative;
+}
+.nav-links li::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  background-position: center;
+  transition: all ease-in 0.3s;
+  transform: translateX(-50%);
+}
+.nav-links li:hover::after {
+  width: 100%;
 }
 .nav-links a {
   color: var(--text-color);
   text-decoration: none;
-  margin-left: 20px;
 }
 .logo {
   width: 150px;

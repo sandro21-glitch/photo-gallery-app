@@ -3,19 +3,22 @@
   flex-direction: column;
   align-items: center;
   padding: 6px 14px;
-  font-family: -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
-  border-radius: 6px;
+  font-family: inherit;
+  border-radius: 3px;
   font-size: 0.9rem;
+  font-weight: 600;
   border: none;
   cursor: pointer;
   color: #fff;
-  background: linear-gradient(180deg, #4b91f7 0%, #367af6 100%);
+  background: #4b91f7;
   background-origin: border-box;
   box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
     inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  transition: all ease-in 0.3s;
+  border: 1px solid transparent;
 }
 
 .button-10:focus {
@@ -23,4 +26,9 @@
     0px 0.5px 1.5px rgba(54, 122, 246, 0.25),
     0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   outline: 0;
+}
+.button-10:hover {
+  background: #fff;
+  color: #4b91f7;
+  border: 1px solid #4b91f7;
 }
