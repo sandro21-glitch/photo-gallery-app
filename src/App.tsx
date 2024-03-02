@@ -35,10 +35,8 @@ function App() {
 
     if (page === 1) {
       loadFromLocalStorage();
-      console.log("Local");
     } else {
       fetchPhotos();
-      console.log("Api");
     }
 
     setInitialFetch(true);
@@ -65,12 +63,12 @@ function App() {
       setPhotos((prevPhotos) => {
         if (query && page === 1) {
           const newPhotos = data.results;
-          //save data to cache
+          // save data to local cache
           localStorage.setItem(query, JSON.stringify(newPhotos));
           return newPhotos;
         } else if (query) {
           const newPhotos = [...prevPhotos, ...data.results];
-          //save data to cache
+          // save data to local cache
           localStorage.setItem(query, JSON.stringify(newPhotos));
           return newPhotos;
         } else {
