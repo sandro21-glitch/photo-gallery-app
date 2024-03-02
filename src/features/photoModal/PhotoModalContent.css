@@ -1,0 +1,37 @@
+.modal-content__container {
+  display: flex;
+  flex-direction: column;
+}
+.react-responsive-modal-closeButton {
+  background-color: #fff;
+  padding: .5rem;
+}
+.modal-content__list {
+  margin-top: 1rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.modal-content__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modal-content__item a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 768px) {
+  .modal-content__item {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .modal-content__item {
+    font-size: 1.5rem;
+  }
+}

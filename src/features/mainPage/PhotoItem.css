@@ -1,0 +1,8 @@
+.photo-list__item {
+    list-style: none;
+    position: relative;
+}
+.photo-item__image{
+    width: 100%;
+    height: auto;
+}

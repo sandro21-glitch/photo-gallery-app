@@ -1,0 +1,14 @@
+.react-responsive-modal-modal {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 95vw;
+  max-width: fit-content;
+  height: fit-content;
+  margin: 2rem auto;
+}
+.react-responsive-modal-modal img {
+  width: 100%;
+  height: auto;
+  max-height: 40rem;
+  object-fit: contain;
+}

@@ -1,0 +1,38 @@
+:root {
+  --header-bg: #007bff;
+  --text-color: #f7f7f5;
+}
+header {
+  background-color: var(--header-bg);
+  padding: 20px;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+.nav-links li {
+  margin-right: 20px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  margin-left: 20px;
+}
+.logo {
+  width: 150px;
+  height: auto;
+}
