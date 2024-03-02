@@ -52,8 +52,7 @@ function App() {
 
     if (query && query !== "") {
       url = `${apiSearchUrl}${urlPage}${urlQuery}&per_page=${perPage}${clientID}`;
-      console.log(url);
-      (url)
+      url;
     } else {
       url = `${apiUrl}${urlPage}${urlOrder}${clientID}&per_page=${perPage}`;
     }
