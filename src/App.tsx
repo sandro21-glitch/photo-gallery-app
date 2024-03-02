@@ -24,14 +24,27 @@ function App() {
 
   useEffect(() => {
     const cachedData = localStorage.getItem(query);
-    if (cachedData) {
-      setPhotos(JSON.parse(cachedData));
+
+    const loadFromLocalStorage = () => {
+      if (cachedData) {
+        setPhotos(JSON.parse(cachedData));
+        console.log("Local");
+      } else {
+        fetchPhotos();
+        console.log("Api");
+      }
+    };
+
+    if (page === 1) {
+      loadFromLocalStorage();
+      console.log("Local");
     } else {
       fetchPhotos();
+      console.log("Api");
     }
 
     setInitialFetch(true);
-  }, [page, history, query]);
+  }, [page, query]);
 
   const fetchPhotos = async () => {
     if (loading) return;
