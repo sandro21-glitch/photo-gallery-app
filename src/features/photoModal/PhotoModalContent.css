@@ -23,6 +23,9 @@
 .modal-content__item a {
   color: #007bff;
   text-decoration: underline;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 .react-responsive-modal-modal {
   min-width: 40rem;

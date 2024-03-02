@@ -2,6 +2,7 @@ import "./PhotoModalContent.css";
 import { BiSolidLike } from "react-icons/bi";
 import { ImDownload } from "react-icons/im";
 import { GrView } from "react-icons/gr";
+import { GoDesktopDownload } from "react-icons/go";
 import LoadingContent from "./LoadingContent";
 type ModalContentProps = {
   download: string;
@@ -40,6 +41,7 @@ const PhotoModalContent = ({
           <div className="modal-content__item">
             <a href={download} target="_blank">
               ჩამოტვირთეთ
+              <GoDesktopDownload />
             </a>
           </div>
         </div>
