@@ -12,7 +12,11 @@ const HistoryPage = ({ history, photos, setQuery }: HistoryPageTypes) => {
   return (
     <section className="section-center">
       <SearchList history={history} setQuery={setQuery} />
-      <Photos photos={photos} />
+      {photos.length < 1 ? (
+        <p>ფოტოები ვერ მოიძებნა</p>
+      ) : (
+        <Photos photos={photos} />
+      )}
     </section>
   );
 };

@@ -28,7 +28,11 @@ const MainPage = ({
         setPage={setPage}
         query={query}
       />
-      {photos && <PhotoList photos={photos} />}
+      {photos.length < 1 ? (
+        <p>ფოტოები ვერ მოიძებნა</p>
+      ) : (
+        <PhotoList photos={photos} />
+      )}
     </main>
   );
 };
