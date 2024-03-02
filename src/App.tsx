@@ -28,10 +28,8 @@ function App() {
     const loadFromLocalStorage = () => {
       if (cachedData) {
         setPhotos(JSON.parse(cachedData));
-        console.log("Local");
       } else {
         fetchPhotos();
-        console.log("Api");
       }
     };
 
