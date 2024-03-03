@@ -63,16 +63,17 @@ function App() {
       setPhotos((prevPhotos) => {
         if (query && page === 1) {
           const newPhotos = data.results;
-          // save data to local cache
+          // save data to local storage cache
           localStorage.setItem(query, JSON.stringify(newPhotos));
           return newPhotos;
         } else if (query) {
           const newPhotos = [...prevPhotos, ...data.results];
-          // save data to local cache
+          // save data to local storage cache
           localStorage.setItem(query, JSON.stringify(newPhotos));
           return newPhotos;
         } else {
           const newPhotos = data.slice(0, perPage);
+           // for popular photos display only the first page results and store them in local storage
           localStorage.setItem("popular", JSON.stringify(newPhotos));
           return newPhotos;
         }
