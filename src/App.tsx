@@ -51,9 +51,9 @@ function App() {
     const urlOrder = "&order_by=popular";
 
     if (query && query !== "") {
-      url = `${apiSearchUrl}${urlPage}${urlQuery}&per_page=${perPage}${clientID}`;
+      url = `${apiSearchUrl}${urlQuery}&per_page=${perPage}&page=${urlPage}${clientID}`;
     } else {
-      url = `${apiUrl}${urlPage}${urlOrder}${clientID}&per_page=${perPage}`;
+      url = `${apiUrl}${urlOrder}&per_page=${perPage}${urlPage}${clientID}`;
     }
 
     try {
