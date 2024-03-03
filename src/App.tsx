@@ -32,7 +32,7 @@ function App() {
   useScrollHandler({ loading, setPage });
 
   // custom hook to handle beforeunload event
-  useBeforeUnloadHandler();
+  useBeforeUnloadHandler({ cache });
 
   // fetch photos hook
   const fetchPhotos = useFetchPhotos(

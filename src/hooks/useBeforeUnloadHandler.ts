@@ -1,8 +1,13 @@
 import { useEffect } from "react";
+import { LRUCache } from "lru-cache";
 
-const useBeforeUnloadHandler = () => {
+interface BeforeUnloadHandlerProps {
+  cache: LRUCache<string, any>;
+}
+
+const useBeforeUnloadHandler = ({ cache }: BeforeUnloadHandlerProps) => {
   const handleBeforeUnload = () => {
-    localStorage.clear();
+    cache.clear();
   };
 
   useEffect(() => {
