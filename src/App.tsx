@@ -44,19 +44,18 @@ function App() {
     apiUrl,
     apiSearchUrl,
     clientID,
-    cache,
+    cache
   );
 
   useEffect(() => {
     const loadFromCache = async () => {
       try {
         const cachedData = query ? cache.get(query) : cache.get("popular");
-  
+
         if (cachedData) {
           setPhotos(cachedData);
           console.log("Loaded from Cache");
         } else {
-          // Clear photos when a new search is performed
           setPhotos([]);
           await fetchPhotos();
           console.log("Fetched from API");
@@ -67,7 +66,7 @@ function App() {
         setInitialFetch(true);
       }
     };
-  
+
     loadFromCache();
   }, [page, query]);
 
