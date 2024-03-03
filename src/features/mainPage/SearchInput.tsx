@@ -1,5 +1,4 @@
-// SearchInput.js
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, startTransition, useEffect, useState } from "react";
 import "./SearchInput.css";
 
 type SearchInputTypes = {
@@ -37,12 +36,14 @@ const SearchInput = ({
       clearTimeout(timeoutId);
     }
 
-    const newTimeoutId = setTimeout(() => {
-      setHistory((prevHistory) => [...prevHistory, inputValue]);
-      setQuery(inputValue);
-    }, 500);
-
-    setTimeoutId(newTimeoutId);
+    startTransition(() => {
+      const newTimeoutId = setTimeout(() => {
+        setHistory((prevHistory) => [...prevHistory, inputValue]);
+        setQuery(inputValue);
+      }, 500);
+  
+      setTimeoutId(newTimeoutId);
+    });
   };
 
   useEffect(() => {

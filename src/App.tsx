@@ -9,7 +9,13 @@ import MainPage from "./pages/MainPage";
 import HistoryPage from "./pages/HistoryPage";
 import Navbar from "./ui/Navbar";
 import Photo from "./types/DataTypes";
-
+import { LRUCache } from "lru-cache";
+import useScrollHandler from "./hooks/useScrollHandler";
+import useBeforeUnloadHandler from "./hooks/useBeforeUnloadHandler";
+import useFetchPhotos from "./hooks/useFetchPhotos";
+const cache = new LRUCache<string, Photo[]>({
+  max: 150,
+});
 const clientID = `&client_id=${import.meta.env.VITE_API_URL}`;
 const apiUrl = `https://api.unsplash.com/photos?`;
 const apiSearchUrl = "https://api.unsplash.com/search/photos?";
@@ -17,110 +23,53 @@ const apiSearchUrl = "https://api.unsplash.com/search/photos?";
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
   const [photos, setPhotos] = useState<Photo[]>([]);
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
   const [query, setQuery] = useState<string>("");
   const [history, setHistory] = useState<string[]>([]);
   const [initialFetch, setInitialFetch] = useState(false);
 
+  // custom hook for handling scroll events
+  useScrollHandler({ loading, setPage });
+
+  // custom hook to handle beforeunload event
+  useBeforeUnloadHandler();
+
+  // fetch photos hook
+  const fetchPhotos = useFetchPhotos(
+    setLoading,
+    setPhotos,
+    loading,
+    page,
+    query,
+    apiUrl,
+    apiSearchUrl,
+    clientID,
+    cache,
+  );
+
   useEffect(() => {
-    const cachedData = localStorage.getItem(query);
-
-    const loadFromLocalStorage = () => {
-      if (cachedData) {
-        setPhotos(JSON.parse(cachedData));
-      } else {
-        fetchPhotos();
-      }
-    };
-    if (page === 1) {
-      loadFromLocalStorage();
-    } else {
-      fetchPhotos();
-    }
-
-    setInitialFetch(true);
-  }, [page, query]);
-
-  const fetchPhotos = async () => {
-    if (loading) return;
-    setLoading(true);
-    let url;
-    const perPage = 20;
-    const urlPage = `${page}`;
-    const urlQuery = query ? `&query=${query}` : "";
-    const urlOrder = "&order_by=popular";
-
-    if (query && query !== "") {
-      url = `${apiSearchUrl}${urlQuery}&per_page=${perPage}&page=${urlPage}${clientID}`;
-    } else {
-      url = `${apiUrl}${urlOrder}&per_page=${perPage}${urlPage}${clientID}`;
-    }
-
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      setPhotos((prevPhotos) => {
-        if (query && page === 1) {
-          const newPhotos = data.results;
-          // save data to local storage cache
-          localStorage.setItem(query, JSON.stringify(newPhotos));
-          return newPhotos;
-        } else if (query) {
-          const newPhotos = [...prevPhotos, ...data.results];
-          // save data to local storage cache
-          localStorage.setItem(query, JSON.stringify(newPhotos));
-          return newPhotos;
+    const loadFromCache = async () => {
+      try {
+        const cachedData = query ? cache.get(query) : cache.get("popular");
+  
+        if (cachedData) {
+          setPhotos(cachedData);
+          console.log("Loaded from Cache");
         } else {
-          const newPhotos = data.slice(0, perPage);
-          // for popular photos display only the first page results and store them in local storage
-          localStorage.setItem("popular", JSON.stringify(newPhotos));
-          return newPhotos;
+          // Clear photos when a new search is performed
+          setPhotos([]);
+          await fetchPhotos();
+          console.log("Fetched from API");
         }
-      });
-
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        !loading &&
-        window.scrollY !== undefined &&
-        window.innerHeight + window.scrollY >= document.body.scrollHeight - 2
-      ) {
-        setPage((prevPage) => prevPage + 1);
+      } catch (error) {
+        console.error("Error loading from cache or fetching from API:", error);
+      } finally {
+        setInitialFetch(true);
       }
     };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [loading]);
-
-  useEffect(() => {
-    if (initialFetch) {
-      setPage(1);
-      fetchPhotos();
-    }
-  }, [query, page, history, initialFetch]);
-
-  const handleBeforeUnload = () => {
-    localStorage.clear();
-  };
-
-  useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
+  
+    loadFromCache();
+  }, [page, query]);
 
   return (
     <BrowserRouter>

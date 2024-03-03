@@ -15,6 +15,8 @@
     "@types/react-responsive-masonry": "^2.1.3",
     "autoprefixer": "^10.4.18",
     "bpg-banner-caps": "^1.0.0",
+    "lru-cache": "^10.2.0",
+    "node-cache": "^5.1.2",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
