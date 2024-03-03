@@ -1,1 +1,1 @@
-https://master--photo-gallery-app-f.netlify.app/
+VITE_API_URL=2rKpEXvSH5wvKMV3RMSY1UlPlUd4QjftBQw3IBTMmdk
