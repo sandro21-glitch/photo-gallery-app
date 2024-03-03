@@ -52,7 +52,6 @@ function App() {
 
     if (query && query !== "") {
       url = `${apiSearchUrl}${urlPage}${urlQuery}&per_page=${perPage}${clientID}`;
-      url;
     } else {
       url = `${apiUrl}${urlPage}${urlOrder}${clientID}&per_page=${perPage}`;
     }
@@ -73,7 +72,7 @@ function App() {
           return newPhotos;
         } else {
           const newPhotos = data.slice(0, perPage);
-           // for popular photos display only the first page results and store them in local storage
+          // for popular photos display only the first page results and store them in local storage
           localStorage.setItem("popular", JSON.stringify(newPhotos));
           return newPhotos;
         }
