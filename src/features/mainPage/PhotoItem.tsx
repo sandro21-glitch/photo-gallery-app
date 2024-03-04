@@ -10,7 +10,7 @@ type PhotoItemTypes = {
   likes: number;
   fullImage: string;
 };
-const clientID = `&client_id=${import.meta.env.VITE_API_URL}`;
+const clientID = '&client_id=2rKpEXvSH5wvKMV3RMSY1UlPlUd4QjftBQw3IBTMmdk';
 const PhotoItem = ({
   regularImage,
   download,
