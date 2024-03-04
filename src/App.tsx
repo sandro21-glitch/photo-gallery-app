@@ -54,15 +54,16 @@ function App() {
 
         if (cachedData) {
           setPhotos(cachedData);
-          console.log("Loaded from Cache");
+          console.log(`Loaded from Cache: ${query || "popular"}`);
         } else {
           setPhotos([]);
           await fetchPhotos();
-          console.log("Fetched from API");
+          console.log(`Fetched from API: ${query || "popular"}`);
         }
+
+        setInitialFetch(true);
       } catch (error) {
         console.error("Error loading from cache or fetching from API:", error);
-      } finally {
         setInitialFetch(true);
       }
     };
@@ -70,9 +71,15 @@ function App() {
     loadFromCache();
   }, [page, query]);
 
+  useEffect(() => {
+    if (initialFetch) {
+      fetchPhotos();
+    }
+  }, [query, page, history, initialFetch]);
+
   return (
     <BrowserRouter>
-      <Navbar setQuery={setQuery} />
+      <Navbar setQuery={setQuery} setPage={setPage} />
       <Routes>
         <Route
           path="/"
