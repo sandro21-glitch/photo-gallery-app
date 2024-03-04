@@ -16,7 +16,7 @@ import useFetchPhotos from "./hooks/useFetchPhotos";
 const cache = new LRUCache<string, Photo[]>({
   max: 150,
 });
-const clientID = '&client_id=2rKpEXvSH5wvKMV3RMSY1UlPlUd4QjftBQw3IBTMmdk';
+const clientID = `&client_id=${import.meta.env.VITE_API_KEY}`;
 const apiUrl = `https://api.unsplash.com/photos?`;
 const apiSearchUrl = "https://api.unsplash.com/search/photos?";
 
